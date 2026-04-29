@@ -12,7 +12,8 @@ public class Main {
 
         String dictionaryPath = "diccionario.txt";
         String textPath = "text.txt";
-        String outputPath = "resultado.txt";
+        String traduction = "resultado.txt";
+        String inorder = "In-Order.txt";
 
         TxTManager txtManager = new TxTManager();
         Scanner scanner = new Scanner(System.in);
@@ -38,14 +39,15 @@ public class Main {
 
                     System.out.println("\n Traduccion:");
 
-                    Files.writeString(Path.of(outputPath), result);
+                    Files.writeString(Path.of(traduction), result);
                     System.out.println("Traduccion en resultado.txt");
 
                 } else if (option == 2) {
 
                     System.out.println("\nDictionary in-order:");
                     for (Translation<String, String> association : dictionary.inOrder()) {
-                        System.out.println(association);
+                        Files.writeString(Path.of(inorder), association.toString());
+
                     }
 
                 } else if (option == 3) {
