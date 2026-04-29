@@ -11,8 +11,8 @@ public class Main {
      * @param args optional arguments: dictionary path and text path
      */
     public static void main(String[] args) {
-        String dictionaryPath = args.length > 0 ? args[0] : "Resources/dictionary.txt";
-        String textPath = args.length > 1 ? args[1] : "Resources/text.txt";
+        String dictionaryPath = args.length > 0 ? args[0] : "diccionario.txt";
+        String textPath = args.length > 1 ? args[1] : "text.txt";
 
         TxTManager txtManager = new TxTManager();
 

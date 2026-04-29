@@ -35,15 +35,15 @@ public class Translator {
         String suffix = "";
         String word = token;
 
-        while (!word.isEmpty()) {
-            prefix += word.charAt(0);
-            word = word.substring(1);
-        }
+        while (!word.isEmpty() && !Character.isLetterOrDigit(word.charAt(0))) {
+        prefix += word.charAt(0);
+        word = word.substring(1);
+    }
 
-        while (!word.isEmpty() ) {
-            suffix = word.charAt(word.length() - 1) + suffix;
-            word = word.substring(0, word.length() - 1);
-        }
+    while (!word.isEmpty() && !Character.isLetterOrDigit(word.charAt(word.length() - 1))) {
+        suffix = word.charAt(word.length() - 1) + suffix;
+        word = word.substring(0, word.length() - 1);
+    }
 
         if (word.isEmpty()) {
             return token;

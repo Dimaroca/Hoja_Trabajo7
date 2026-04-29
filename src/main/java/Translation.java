@@ -56,4 +56,9 @@ public class Translation<K extends Comparable<K>, V> implements Comparable<Trans
     public int compareTo(Translation<K, V> other) {
         return this.key.compareTo(other.key);
     }
+
+    @Override
+    public String toString() {
+        return "(" + key + ", " + value + ")";
+    }
 }
