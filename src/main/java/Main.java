@@ -1,37 +1,68 @@
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
 
 /**
- * Runs the English-Spanish dictionary program.
+ * Runs the English-Spanish dictionary program with a simple menu.
  */
 public class Main {
 
-    /**
-     * Loads the dictionary, prints the in-order traversal, and translates the input text.
-     *
-     * @param args optional arguments: dictionary path and text path
-     */
     public static void main(String[] args) {
-        String dictionaryPath = args.length > 0 ? args[0] : "diccionario.txt";
-        String textPath = args.length > 1 ? args[1] : "text.txt";
+
+        String dictionaryPath = "diccionario.txt";
+        String textPath = "text.txt";
+        String outputPath = "resultado.txt";
 
         TxTManager txtManager = new TxTManager();
+        Scanner scanner = new Scanner(System.in);
 
         try {
             DictionaryTree dictionary = txtManager.loadDictionary(dictionaryPath);
-
-            System.out.println("Dictionary in-order:");
-            for (Translation<String, String> association : dictionary.inOrder()) {
-                System.out.print(association + " ");
-            }
-
             String text = txtManager.readText(textPath);
             Translator translator = new Translator(dictionary);
 
-            System.out.println("\n\nTranslation:");
-            System.out.println(translator.translate(text));
+            int option = 0;
 
-        } catch (IOException exception) {
-            System.out.println("File error: " + exception.getMessage());
+            while (option != 3) {
+
+                System.out.println("\n===== MENU =====");
+                System.out.println("1. Traducir texto (en text.txt)");
+                System.out.println("2. Mostrar In-Order");
+                System.out.println("3. Salir");
+
+                option = scanner.nextInt();
+
+                if (option == 1) {
+                    String result = translator.translate(text);
+
+                    System.out.println("\n Traduccion:");
+
+                    Files.writeString(Path.of(outputPath), result);
+                    System.out.println("Traduccion en resultado.txt");
+
+                } else if (option == 2) {
+
+                    System.out.println("\nDictionary in-order:");
+                    for (Translation<String, String> association : dictionary.inOrder()) {
+                        System.out.println(association);
+                    }
+
+                } else if (option == 3) {
+
+                    System.out.println("Saliendo");
+
+                } else {
+
+                    System.out.println("Opción invalida");
+
+                }
+            }
+
+        } catch (IOException e) {
+            System.out.println("File error: " + e.getMessage());
         }
+
+        scanner.close();
     }
 }
